@@ -3,6 +3,7 @@ package com.octoguac.datastructures;
 public class Set {
     Object[] items;
     int size = 0;
+    private final int defaultIndex = -1;
 
     public Set() {
         items = new Object[10];
@@ -29,23 +30,17 @@ public class Set {
     }
 
     public boolean contains(Object item) {
-        for (int i = 0; i < size; i++) {
-            if (items[i].equals(item)) {
-                return true;
-            }
-        }
-        return false;
+        return findItemIndex(item) >= 0;
     }
 
     public void remove(Object item) {
-        for (int i = 0; i < size; i++) {
-            if (!items[i].equals(item)) {
-                continue;
-            }
-
-            items[i] = items[size - 1];
-            items[size--] = null;
+        int index = findItemIndex(item);
+        if (index == defaultIndex) {
+            return;
         }
+
+        items[index] = items[--size];
+        items[size] = null;
     }
 
     public int size() {
@@ -60,5 +55,14 @@ public class Set {
         }
 
         items = temp;
+    }
+
+    private int findItemIndex(Object item) {
+        for (int i = 0; i < size; i++) {
+            if (items[i].equals(item)) {
+                return i;
+            }
+        }
+        return defaultIndex;
     }
 }

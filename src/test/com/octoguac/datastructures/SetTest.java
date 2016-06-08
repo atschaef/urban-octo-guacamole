@@ -55,6 +55,10 @@ public class SetTest {
         assertTrue(one.contains("one"));
         assertEquals(1, one.size());
 
+        one.remove("one");
+        assertFalse(one.contains("one"));
+        assertEquals(0, one.size());
+
         many.remove("one");
         assertFalse(many.contains("one"));
         assertEquals(1, many.size());
